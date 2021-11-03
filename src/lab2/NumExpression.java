@@ -1,24 +1,24 @@
 package lab2;
 import java.util.Stack;
 /** 
- * Выражение может содержать числа, знаки операций, скобки. 
- * В случае, если выражение записано корректно, вычислить значение, 
- * в противном случае — вывести сообщение об ошибке.
- * @author Суховеркова Екатерина (3 курс 3 группа)
+ * Р’С‹СЂР°Р¶РµРЅРёРµ РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ С‡РёСЃР»Р°, Р·РЅР°РєРё РѕРїРµСЂР°С†РёР№, СЃРєРѕР±РєРё. 
+ * Р’ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РІС‹СЂР°Р¶РµРЅРёРµ Р·Р°РїРёСЃР°РЅРѕ РєРѕСЂСЂРµРєС‚РЅРѕ, РІС‹С‡РёСЃР»РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ, 
+ * РІ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ вЂ” РІС‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ.
+ * @author РЎСѓС…РѕРІРµСЂРєРѕРІР° Р•РєР°С‚РµСЂРёРЅР° (3 РєСѓСЂСЃ 3 РіСЂСѓРїРїР°)
 */
 public class NumExpression {
-	/** Поле выражения */
+	/** РџРѕР»Рµ РІС‹СЂР°Р¶РµРЅРёСЏ */
     private String expression;
     /**
-     * Конструктор
-     * @param exp - выражение
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param exp - РІС‹СЂР°Р¶РµРЅРёРµ
      */
     public NumExpression(String exp) {
     	expression = exp;
     }
     /**
-     * Функция решения выражения
-     * @return возвращает решение выражение
+     * Р¤СѓРЅРєС†РёСЏ СЂРµС€РµРЅРёСЏ РІС‹СЂР°Р¶РµРЅРёСЏ
+     * @return РІРѕР·РІСЂР°С‰Р°РµС‚ СЂРµС€РµРЅРёРµ РІС‹СЂР°Р¶РµРЅРёРµ
      */
     public double solution() throws Exception{
         error();
@@ -27,37 +27,37 @@ public class NumExpression {
         return RPNtoAnswer(rpn);
     }
     /**
-     * Функция проверки на ошибки введенного выражения {@link NumExpression#expression}
+     * Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё РЅР° РѕС€РёР±РєРё РІРІРµРґРµРЅРЅРѕРіРѕ РІС‹СЂР°Р¶РµРЅРёСЏ {@link NumExpression#expression}
      */
     private void error() throws Exception{
         int op_bracket = 0, ed_bracket = 0, count = 0;
         if (expression.length() == 0)
-            throw new Exception("Ошибка: введена пустая строка.");
+            throw new Exception("РћС€РёР±РєР°: РІРІРµРґРµРЅР° РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°.");
         if (expression.charAt(0) == '*' || expression.charAt(0) == '/')
-            throw new Exception("Ошибка: выражение не может начинаться с этих знаков.");
+            throw new Exception("РћС€РёР±РєР°: РІС‹СЂР°Р¶РµРЅРёРµ РЅРµ РјРѕР¶РµС‚ РЅР°С‡РёРЅР°С‚СЊСЃСЏ СЃ СЌС‚РёС… Р·РЅР°РєРѕРІ.");
         if (expression.charAt(expression.length() - 1) == '*' || expression.charAt(expression.length() - 1) == '/' || expression.charAt(expression.length() - 1) == '+' || expression.charAt(expression.length() - 1) == '-')
-            throw new Exception("Ошибка: выражение не может заканчиваться на эти знаки.\"");
+            throw new Exception("РћС€РёР±РєР°: РІС‹СЂР°Р¶РµРЅРёРµ РЅРµ РјРѕР¶РµС‚ Р·Р°РєР°РЅС‡РёРІР°С‚СЊСЃСЏ РЅР° СЌС‚Рё Р·РЅР°РєРё.\"");
         for (int i = 0; i < expression.length(); i++){
             char symbol = expression.charAt(i);
             if (Character.isDigit(symbol)) count++;
             if (symbol == '(') op_bracket++;
             if (symbol == ')') ed_bracket++;
             if (!Character.isDigit(symbol) && symbol != '+' && symbol != '-' && symbol != '/' && symbol != '*' && symbol != '(' && symbol != ')' && symbol != '.')
-                throw new Exception("Ошибка: использованны недопустимые символы.");
+                throw new Exception("РћС€РёР±РєР°: РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅС‹ РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹.");
             if (i < expression.length() - 1) {
                 char next_symbol = expression.charAt(i + 1);
                 if ((symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/') && (!Character.isDigit(next_symbol) && next_symbol != '('))
-                    throw new Exception("Ошибка: пропущенно число и/или два знака идут подряд.");
+                    throw new Exception("РћС€РёР±РєР°: РїСЂРѕРїСѓС‰РµРЅРЅРѕ С‡РёСЃР»Рѕ Рё/РёР»Рё РґРІР° Р·РЅР°РєР° РёРґСѓС‚ РїРѕРґСЂСЏРґ.");
                 if (symbol == '(' && next_symbol == ')')
-                    throw new Exception("Ошибка: выражение в скобках отсутствует.");
+                    throw new Exception("РћС€РёР±РєР°: РІС‹СЂР°Р¶РµРЅРёРµ РІ СЃРєРѕР±РєР°С… РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.");
             }
         }
-        if (count == expression.length()) throw new Exception("Ошибка: выражение состоит из одного числа.");
-        if (op_bracket != ed_bracket) throw new Exception("Ошибка: количество открывающих и закрывающих скобок не совпадает.");
+        if (count == expression.length()) throw new Exception("РћС€РёР±РєР°: РІС‹СЂР°Р¶РµРЅРёРµ СЃРѕСЃС‚РѕРёС‚ РёР· РѕРґРЅРѕРіРѕ С‡РёСЃР»Р°.");
+        if (op_bracket != ed_bracket) throw new Exception("РћС€РёР±РєР°: РєРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚РєСЂС‹РІР°СЋС‰РёС… Рё Р·Р°РєСЂС‹РІР°СЋС‰РёС… СЃРєРѕР±РѕРє РЅРµ СЃРѕРІРїР°РґР°РµС‚.");
     }
     /**
-     * Функция подготовки выражения для вычисления {@link NumExpression#expression}
-     * @return возвращает подготовленное выражение
+     * Р¤СѓРЅРєС†РёСЏ РїРѕРґРіРѕС‚РѕРІРєРё РІС‹СЂР°Р¶РµРЅРёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ {@link NumExpression#expression}
+     * @return РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕРґРіРѕС‚РѕРІР»РµРЅРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ
      */
     private String prepareExpression(){
         String exp = "";
@@ -74,13 +74,13 @@ public class NumExpression {
         return exp;
     }
     /**
-     * Функция преобразования выражения с помощью обратной пользовательской нотации
-     * @param exp -  подготовленное выражение {@link NumExpression#prepareExpression}
-     * @return возвращает преобразованное выражение
+     * Р¤СѓРЅРєС†РёСЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ РІС‹СЂР°Р¶РµРЅРёСЏ СЃ РїРѕРјРѕС‰СЊСЋ РѕР±СЂР°С‚РЅРѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕР№ РЅРѕС‚Р°С†РёРё
+     * @param exp -  РїРѕРґРіРѕС‚РѕРІР»РµРЅРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ {@link NumExpression#prepareExpression}
+     * @return РІРѕР·РІСЂР°С‰Р°РµС‚ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ
      */
     private String expressionToRPN(String exp){
-        String current = ""; //переменная текущей строки
-        Stack<Character> Stack = new Stack<>(); //стэк
+        String current = ""; //РїРµСЂРµРјРµРЅРЅР°СЏ С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРё
+        Stack<Character> Stack = new Stack<>(); //СЃС‚СЌРє
         int priority;
         for(int i = 0; i < exp.length(); i++){
             priority = getPriority(exp.charAt(i));
@@ -106,9 +106,9 @@ public class NumExpression {
         return current;
     }
     /**
-     * Функция вычисления значения выражения
-     * @param rpn - преобразованное с помощью обратной пользовательской нотации выражение {@link NumExpression#expressionToRPN}
-     * @return возвращает вычисленное значение
+     * Р¤СѓРЅРєС†РёСЏ РІС‹С‡РёСЃР»РµРЅРёСЏ Р·РЅР°С‡РµРЅРёСЏ РІС‹СЂР°Р¶РµРЅРёСЏ
+     * @param rpn - РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅРѕРµ СЃ РїРѕРјРѕС‰СЊСЋ РѕР±СЂР°С‚РЅРѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕР№ РЅРѕС‚Р°С†РёРё РІС‹СЂР°Р¶РµРЅРёРµ {@link NumExpression#expressionToRPN}
+     * @return РІРѕР·РІСЂР°С‰Р°РµС‚ РІС‹С‡РёСЃР»РµРЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
      */
     private double RPNtoAnswer(String rpn) throws Exception{
         String operand = "";
@@ -128,16 +128,16 @@ public class NumExpression {
                 if (rpn.charAt(i) == '+') Stack.push(b + a);
                 if (rpn.charAt(i) == '-') Stack.push(b - a);
                 if (rpn.charAt(i) == '*') Stack.push(b * a);
-                if (a == 0) throw new Exception("Деление на 0!");
+                if (a == 0) throw new Exception("Р”РµР»РµРЅРёРµ РЅР° 0!");
                 if (rpn.charAt(i) == '/') Stack.push(b / a);
             }
         }
         return Stack.pop();
     }
     /**
-     * Функция получения приоритета операции
-     * @param i - элемент выражения
-     * @return возвращает приоритет
+     * Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РїСЂРёРѕСЂРёС‚РµС‚Р° РѕРїРµСЂР°С†РёРё
+     * @param i - СЌР»РµРјРµРЅС‚ РІС‹СЂР°Р¶РµРЅРёСЏ
+     * @return РІРѕР·РІСЂР°С‰Р°РµС‚ РїСЂРёРѕСЂРёС‚РµС‚
      */
     private int getPriority(char i){
         if (i == '*' || i == '/') return 3;
