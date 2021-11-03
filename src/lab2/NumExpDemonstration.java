@@ -1,8 +1,8 @@
 package lab2;
 import java.util.Scanner;
 /** 
- * Класс для запуска и демонстрации работы NumExpression.
- * @author Суховеркова Екатерина (3 курс 3 группа)
+ * РљР»Р°СЃСЃ РґР»СЏ Р·Р°РїСѓСЃРєР° Рё РґРµРјРѕРЅСЃС‚СЂР°С†РёРё СЂР°Р±РѕС‚С‹ NumExpression.
+ * @author РЎСѓС…РѕРІРµСЂРєРѕРІР° Р•РєР°С‚РµСЂРёРЅР° (3 РєСѓСЂСЃ 3 РіСЂСѓРїРїР°)
 */
 public class NumExpDemonstration {
 
@@ -11,14 +11,14 @@ public class NumExpDemonstration {
 		do
 		{
 			/**
-			 * @value exp - создание нового объекта типа NumExpression
+			 * @value exp - СЃРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РѕР±СЉРµРєС‚Р° С‚РёРїР° NumExpression
 			 */ 
-			System.out.println("Введите выражение: ");
+			System.out.println("Р’РІРµРґРёС‚Рµ РІС‹СЂР°Р¶РµРЅРёРµ: ");
 			Scanner cons = new Scanner(System.in);
 			String t = cons.nextLine();
 			NumExpression exp = new NumExpression(t);
 			System.out.println(exp.solution());
-			System.out.println("Продолжить - a, выйти - q.");
+			System.out.println("РџСЂРѕРґРѕР»Р¶РёС‚СЊ - a, РІС‹Р№С‚Рё - q.");
 			Scanner cons2 = new Scanner(System.in);
 			f = cons2.nextLine();
 		} 
